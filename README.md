@@ -1,3 +1,5 @@
+[![.NET](https://github.com/aimenux/HuaweiStorageManager/actions/workflows/ci.yml/badge.svg)](https://github.com/aimenux/HuaweiStorageManager/actions/workflows/ci.yml)
+
 # HuaweiStorageManager
 ```
 Providing net global tool in order to manage a huawei cloud storage
@@ -32,4 +34,4 @@ Providing net global tool in order to manage a huawei cloud storage
 >
 >
 
-**`Tools`** : vs19, net 5.0, 
+**`Tools`** : vs19, net 5.0, fluent validations, spectreconsole
