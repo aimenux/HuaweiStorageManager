@@ -32,6 +32,8 @@ Providing net global tool in order to manage a huawei cloud storage
 > - `dotnet tool update -g HuaweiStorageManager --ignore-failed-sources`
 > - `dotnet tool uninstall -g HuaweiStorageManager`
 >
+> To install global tool from [nuget source](https://www.nuget.org/packages/HuaweiStorageManager), type these command :
+> - `dotnet tool install -g HuaweiStorageManager --ignore-failed-sources`
 >
 
-**`Tools`** : vs19, net 5.0, fluent validations, spectreconsole
+**`Tools`** : vs19, net 5.0, huawei.obs, fluent validations, spectreconsole
