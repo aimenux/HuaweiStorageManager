@@ -30,15 +30,18 @@ namespace App.Commands
 
         protected override void Execute(CommandLineApplication _)
         {
+            var storageFile = _storageHelper.UploadStorageFile(BucketName, FileName, UploadPath);
+            ConsoleHelper.RenderStorageFile(storageFile);
+        }
+
+        protected override void Initialize()
+        {
             UploadPath = Path.GetFullPath(UploadPath);
 
             if (string.IsNullOrWhiteSpace(FileName))
             {
                 FileName = Path.GetFileName(UploadPath);
             }
-
-            var storageFile = _storageHelper.UploadStorageFile(BucketName, FileName, UploadPath);
-            ConsoleHelper.RenderStorageFile(storageFile);
         }
 
         protected override bool HasValidOptions()

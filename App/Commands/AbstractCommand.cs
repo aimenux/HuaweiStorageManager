@@ -18,6 +18,8 @@ namespace App.Commands
         {
             try
             {
+                Initialize();
+
                 if (!HasValidOptions() || !HasValidArguments())
                 {
                     throw new Exception($"Invalid options/arguments for command {GetType().Name}");
@@ -32,6 +34,12 @@ namespace App.Commands
         }
 
         protected abstract void Execute(CommandLineApplication app);
+
+        protected virtual void Initialize()
+        {
+            // any staff you need to run before command execution
+            // like setting default values for options/arguments, etc.
+        }
 
         protected virtual bool HasValidOptions() => true;
 
