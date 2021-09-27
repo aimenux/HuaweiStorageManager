@@ -30,18 +30,15 @@ namespace App.Commands
 
         protected override void Execute(CommandLineApplication _)
         {
-            var storageFile = _storageHelper.DownloadStorageFile(BucketName, FileName, DownloadPath);
-            ConsoleHelper.RenderStorageFile(storageFile);
-        }
-
-        protected override void BeforeExecute()
-        {
             if (string.IsNullOrWhiteSpace(DownloadPath))
             {
                 DownloadPath = Path.GetFullPath("./");
             }
 
             DownloadPath = Path.GetFullPath(DownloadPath);
+
+            var storageFile = _storageHelper.DownloadStorageFile(BucketName, FileName, DownloadPath);
+            ConsoleHelper.RenderStorageFile(storageFile);
         }
 
         protected override bool HasValidOptions()

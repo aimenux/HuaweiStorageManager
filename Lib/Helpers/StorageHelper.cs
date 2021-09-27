@@ -25,7 +25,7 @@ namespace Lib.Helpers
         public StorageFile GetStorageFileInfo(string bucketName, string fileName)
         {
             var client = GetClient();
-            var request = new GetObjectMetadataRequest()
+            var request = new GetObjectMetadataRequest
             {
                 BucketName = bucketName,
                 ObjectKey = fileName

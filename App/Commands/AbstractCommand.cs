@@ -18,16 +18,12 @@ namespace App.Commands
         {
             try
             {
-                BeforeExecute();
-
                 if (!HasValidOptions() || !HasValidArguments())
                 {
                     throw new Exception($"Invalid options/arguments for command {GetType().Name}");
                 }
 
                 Execute(app);
-
-                AfterExecute();
             }
             catch (Exception ex)
             {
@@ -36,14 +32,6 @@ namespace App.Commands
         }
 
         protected abstract void Execute(CommandLineApplication app);
-
-        protected virtual void BeforeExecute()
-        {
-        }
-
-        protected virtual void AfterExecute()
-        {
-        }
 
         protected virtual bool HasValidOptions() => true;
 

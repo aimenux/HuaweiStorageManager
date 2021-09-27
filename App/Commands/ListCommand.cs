@@ -16,6 +16,7 @@ namespace App.Commands
             _storageHelper = storageHelper;
         }
 
+        [Required]
         [Option("-b|--bucket", "Bucket Name", CommandOptionType.SingleValue)]
         public string BucketName { get; set; }
 
