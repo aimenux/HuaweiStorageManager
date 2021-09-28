@@ -19,6 +19,10 @@ namespace Lib.Helpers
 
         void RenderStorageFile(DownloadStorageFile storageFile);
 
+        void RenderStorageFile(CopyStorageFile storageFile);
+
+        void RenderStorageFile(DeleteStorageFile storageFile);
+
         void RenderException(Exception exception);
 
         void RenderException(ObsException exception);

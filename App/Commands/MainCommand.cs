@@ -6,7 +6,7 @@ using McMaster.Extensions.CommandLineUtils;
 namespace App.Commands
 {
     [Command(Name = "HuaweiStorage", FullName = "Manage HuaweiStorage", Description = "Manage HuaweiStorage.")]
-    [Subcommand(typeof(ListCommand), typeof(InfoCommand), typeof(UploadCommand), typeof(DownloadCommand))]
+    [Subcommand(typeof(ListCommand), typeof(InfoCommand), typeof(DeleteCommand), typeof(UploadCommand), typeof(DownloadCommand), typeof(CopyCommand))]
     [VersionOptionFromMember(MemberName = nameof(GetVersion))]
     public class MainCommand : AbstractCommand
     {

@@ -5,6 +5,8 @@ namespace Lib.Helpers
 {
     public interface IStorageHelper
     {
+        DeleteStorageFile DeleteStorageFile(string bucketName, string fileName);
+
         StorageFile GetStorageFileInfo(string bucketName, string fileName);
 
         ICollection<StorageFile> ListStorageFiles(string bucketName, int maxItems);
@@ -12,5 +14,7 @@ namespace Lib.Helpers
         UploadStorageFile UploadStorageFile(string bucketName, string fileName, string uploadPath);
 
         DownloadStorageFile DownloadStorageFile(string bucketName, string fileName, string downloadPath);
+
+        CopyStorageFile CopyStorageFile(string sourceBucketName, string sourceFileName, string targetBucketName, string targetFileName);
     }
 }

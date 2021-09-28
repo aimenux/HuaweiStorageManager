@@ -22,6 +22,40 @@ namespace Lib.Helpers
             _settings = options.Value;
         }
 
+        public DeleteStorageFile DeleteStorageFile(string bucketName, string fileName)
+        {
+            var client = GetClient();
+            var headRequest = new HeadObjectRequest
+            {
+                BucketName = bucketName,
+                ObjectKey = fileName
+            };
+
+            var exists = client.HeadObject(headRequest);
+            if (!exists)
+            {
+                throw StorageException.FailedToFindBucketFile(bucketName, fileName);
+            }
+
+            var deleteRequest = new DeleteObjectRequest
+            {
+                BucketName = bucketName,
+                ObjectKey = fileName
+            };
+
+            using var deleteResponse = client.DeleteObject(deleteRequest);
+            if (!IsNoContentStatusCode(deleteResponse.StatusCode))
+            {
+                throw StorageException.FailedToDeleteBucketFile(bucketName, fileName);
+            }
+
+            return new DeleteStorageFile
+            {
+                BucketName = bucketName,
+                FileName = fileName
+            };
+        }
+
         public StorageFile GetStorageFileInfo(string bucketName, string fileName)
         {
             var client = GetClient();
@@ -118,6 +152,32 @@ namespace Lib.Helpers
             };
         }
 
+        public CopyStorageFile CopyStorageFile(string sourceBucketName, string sourceFileName, string targetBucketName, string targetFileName)
+        {
+            var client = GetClient();
+            var request = new CopyObjectRequest
+            {
+                SourceBucketName = sourceBucketName,
+                SourceObjectKey = sourceFileName,
+                BucketName = targetBucketName,
+                ObjectKey = targetFileName
+            };
+
+            using var response = client.CopyObject(request);
+            if (!IsSuccessfulStatusCode(response.StatusCode))
+            {
+                throw StorageException.FailedToCopyBucketFile(sourceFileName);
+            }
+
+            return new CopyStorageFile
+            {
+                SourceBucketName = sourceBucketName,
+                SourceFileName = sourceFileName,
+                TargetBucketName = targetBucketName,
+                TargetFileName = targetFileName
+            };
+        }
+
         private ObsClient GetClient()
         {
             if (!HasValidStorageSettings())
@@ -132,6 +192,11 @@ namespace Lib.Helpers
         private static bool IsSuccessfulStatusCode(HttpStatusCode statusCode)
         {
             return statusCode == HttpStatusCode.OK;
+        }
+
+        private static bool IsNoContentStatusCode(HttpStatusCode statusCode)
+        {
+            return statusCode == HttpStatusCode.NoContent;
         }
 
         private bool HasValidStorageSettings() => _validator.Validate(_settings).IsValid;

@@ -134,6 +134,40 @@ namespace Lib.Helpers
             AnsiConsole.WriteLine();
         }
 
+        public void RenderStorageFile(CopyStorageFile storageFile)
+        {
+            var table = new Table()
+                .BorderColor(Color.White)
+                .Border(TableBorder.Square)
+                .Title("[yellow]1 file(s) copied[/]")
+                .AddColumn(new TableColumn("[u]SourceBucketName[/]").Centered())
+                .AddColumn(new TableColumn("[u]SourceFileName[/]").Centered())
+                .AddColumn(new TableColumn("[u]TargetBucketName[/]").Centered())
+                .AddColumn(new TableColumn("[u]TargetFileName[/]").Centered());
+
+            table.AddRow(storageFile.SourceBucketName, storageFile.SourceFileName, storageFile.TargetBucketName, storageFile.TargetFileName);
+
+            AnsiConsole.WriteLine();
+            AnsiConsole.Render(table);
+            AnsiConsole.WriteLine();
+        }
+
+        public void RenderStorageFile(DeleteStorageFile storageFile)
+        {
+            var table = new Table()
+                .BorderColor(Color.White)
+                .Border(TableBorder.Square)
+                .Title("[yellow]1 file(s) deleted[/]")
+                .AddColumn(new TableColumn("[u]BucketName[/]").Centered())
+                .AddColumn(new TableColumn("[u]FileName[/]").Centered());
+
+            table.AddRow(storageFile.BucketName, storageFile.FileName);
+
+            AnsiConsole.WriteLine();
+            AnsiConsole.Render(table);
+            AnsiConsole.WriteLine();
+        }
+
         public void RenderException(Exception exception)
         {
             const ExceptionFormats formats = ExceptionFormats.ShortenTypes

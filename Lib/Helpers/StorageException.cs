@@ -49,6 +49,21 @@ namespace Lib.Helpers
             return new StorageException($"Failed to download file {fileToDownload} from bucket {bucketName}");
         }
 
+        public static StorageException FailedToCopyBucketFile(string sourceFileName)
+        {
+            return new StorageException($"Failed to copy file {sourceFileName}");
+        }
+
+        public static StorageException FailedToDeleteBucketFile(string bucketName, string fileName)
+        {
+            return new StorageException($"Failed to delete file {fileName} from bucket {bucketName}");
+        }
+
+        public static StorageException FailedToFindBucketFile(string bucketName, string fileName)
+        {
+            return new StorageException($"Failed to find file {fileName} in bucket {bucketName}");
+        }
+
         public static StorageException InvalidStorageSettings(StorageSettings settings)
         {
             return settings is null
