@@ -2,6 +2,7 @@
 using System.Reflection;
 using Lib.Helpers;
 using McMaster.Extensions.CommandLineUtils;
+using OBS;
 
 namespace App.Commands
 {
@@ -26,6 +27,10 @@ namespace App.Commands
                 }
 
                 Execute(app);
+            }
+            catch (ObsException ex)
+            {
+                ConsoleHelper.RenderException(ex);
             }
             catch (Exception ex)
             {

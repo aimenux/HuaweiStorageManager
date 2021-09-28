@@ -2,7 +2,10 @@
   "profiles": {
     "App": {
       "commandName": "Project",
-      "commandLineArgs": ""
+      "commandLineArgs": "",
+      "environmentVariables": {
+        "ENVIRONMENT": "DEV"
+      }
     }
   }
 }

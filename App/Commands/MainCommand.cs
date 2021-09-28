@@ -26,7 +26,7 @@ namespace App.Commands
                 return;
             }
 
-            const string title = "HuaweiStorage";
+            const string title = "HuaweiStorageManager";
             ConsoleHelper.RenderTitle(title);
             app.ShowHelp();
         }

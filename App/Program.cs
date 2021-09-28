@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using App.Commands;
@@ -26,7 +27,9 @@ namespace App
                     config.AddCommandLine(args);
                     config.AddEnvironmentVariables();
                     config.SetBasePath(GetDirectoryPath());
+                    var environment = Environment.GetEnvironmentVariable("ENVIRONMENT");
                     config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                    config.AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
                 })
                 .ConfigureLogging((hostingContext, loggingBuilder) =>
                 {
