@@ -47,4 +47,4 @@ Providing net global tool in order to manage a huawei cloud storage
 > ![HuaweiStorageManager](Screenshots/HuaweiStorageManager.png)
 >
 
-**`Tools`** : vs19, net 5.0, huawei.obs, fluent validations, spectreconsole
+**`Tools`** : vs19, net 5.0, huawei obs, fluent validations, spectre console

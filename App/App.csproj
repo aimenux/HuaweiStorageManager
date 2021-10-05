@@ -9,7 +9,7 @@
 		<PackageOutputPath>../Nugets</PackageOutputPath>
 		<ToolCommandName>HuaweiStorageManager</ToolCommandName>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Description>A global tool to maanage a huawei storage</Description>
+		<Description>A global tool to manage a huawei storage</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
