@@ -28,9 +28,12 @@ namespace App.Commands
         [Option("-p|--path", "UploadPath", CommandOptionType.SingleValue)]
         public string UploadPath { get; set; }
 
+        [Option("--headers", "HeadersFile", CommandOptionType.SingleValue)]
+        public string HeadersFile { get; set; }
+
         protected override void Execute(CommandLineApplication _)
         {
-            var storageFile = _storageHelper.UploadStorageFile(BucketName, FileName, UploadPath);
+            var storageFile = _storageHelper.UploadStorageFile(BucketName, FileName, UploadPath, HeadersFile);
             ConsoleHelper.RenderStorageFile(storageFile);
         }
 
@@ -46,7 +49,17 @@ namespace App.Commands
 
         protected override bool HasValidOptions()
         {
-            return !string.IsNullOrWhiteSpace(UploadPath) && File.Exists(UploadPath);
+            if (string.IsNullOrWhiteSpace(UploadPath) || !File.Exists(UploadPath))
+            {
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(HeadersFile))
+            {
+                return File.Exists(HeadersFile);
+            }
+
+            return true;
         }
 
         private static string GetVersion() => GetVersion(typeof(UploadCommand));

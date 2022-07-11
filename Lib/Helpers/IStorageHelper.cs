@@ -11,7 +11,7 @@ namespace Lib.Helpers
 
         ICollection<StorageFile> ListStorageFiles(string bucketName, int maxItems);
 
-        UploadStorageFile UploadStorageFile(string bucketName, string fileName, string uploadPath);
+        UploadStorageFile UploadStorageFile(string bucketName, string fileName, string uploadPath, string headersFile);
 
         DownloadStorageFile DownloadStorageFile(string bucketName, string fileName, string downloadPath);
 

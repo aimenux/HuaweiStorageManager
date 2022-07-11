@@ -15,9 +15,20 @@ namespace App
 {
     public static class Program
     {
-        public static Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            return CreateHostBuilder(args).RunCommandLineApplicationAsync<MainCommand>(args);
+            try
+            {
+                await CreateHostBuilder(args).RunCommandLineApplicationAsync<MainCommand>(args);
+            }
+            catch (Exception ex)
+            {
+                ConsoleHelper.RenderException(ex);
+            }
+            finally
+            {
+                ConsoleHelper.WaitForExitOnDebugMode();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

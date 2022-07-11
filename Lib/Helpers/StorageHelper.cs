@@ -103,7 +103,7 @@ namespace Lib.Helpers
             return storageObjects;
         }
 
-        public UploadStorageFile UploadStorageFile(string bucketName, string fileName, string uploadPath)
+        public UploadStorageFile UploadStorageFile(string bucketName, string fileName, string uploadPath, string headersFile)
         {
             var client = GetClient();
             var request = new PutObjectRequest
@@ -112,6 +112,8 @@ namespace Lib.Helpers
                 ObjectKey = fileName,
                 FilePath = uploadPath
             };
+
+            request.AddHeaders(headersFile);
 
             using var response = client.PutObject(request);
             if (!IsSuccessfulStatusCode(response.StatusCode))

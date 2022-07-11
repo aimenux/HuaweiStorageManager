@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using Lib.Extensions;
 using Lib.Models;
@@ -15,7 +16,7 @@ namespace Lib.Helpers
         public void RenderTitle(string text)
         {
             AnsiConsole.WriteLine();
-            AnsiConsole.Render(new FigletText(text).LeftAligned());
+            AnsiConsole.Write(new FigletText(text).LeftAligned());
             AnsiConsole.WriteLine();
         }
 
@@ -30,9 +31,9 @@ namespace Lib.Helpers
             footer.Centered();
 
             AnsiConsole.WriteLine();
-            AnsiConsole.Render(header);
+            AnsiConsole.Write(header);
             AnsiConsole.WriteLine(formattedJson);
-            AnsiConsole.Render(footer);
+            AnsiConsole.Write(footer);
             AnsiConsole.WriteLine();
         }
 
@@ -55,7 +56,7 @@ namespace Lib.Helpers
             }
 
             AnsiConsole.WriteLine();
-            AnsiConsole.Render(table);
+            AnsiConsole.Write(table);
             AnsiConsole.WriteLine();
         }
 
@@ -92,7 +93,7 @@ namespace Lib.Helpers
             table.AddRow(table1, table2);
 
             AnsiConsole.WriteLine();
-            AnsiConsole.Render(table);
+            AnsiConsole.Write(table);
             AnsiConsole.WriteLine();
         }
 
@@ -111,7 +112,7 @@ namespace Lib.Helpers
             table.AddRow(storageFile.BucketName, storageFile.FileName, uploadPathMarkup);
 
             AnsiConsole.WriteLine();
-            AnsiConsole.Render(table);
+            AnsiConsole.Write(table);
             AnsiConsole.WriteLine();
         }
 
@@ -130,7 +131,7 @@ namespace Lib.Helpers
             table.AddRow(storageFile.BucketName, storageFile.FileName, downloadPathMarkup);
 
             AnsiConsole.WriteLine();
-            AnsiConsole.Render(table);
+            AnsiConsole.Write(table);
             AnsiConsole.WriteLine();
         }
 
@@ -148,7 +149,7 @@ namespace Lib.Helpers
             table.AddRow(storageFile.SourceBucketName, storageFile.SourceFileName, storageFile.TargetBucketName, storageFile.TargetFileName);
 
             AnsiConsole.WriteLine();
-            AnsiConsole.Render(table);
+            AnsiConsole.Write(table);
             AnsiConsole.WriteLine();
         }
 
@@ -164,11 +165,19 @@ namespace Lib.Helpers
             table.AddRow(storageFile.BucketName, storageFile.FileName);
 
             AnsiConsole.WriteLine();
-            AnsiConsole.Render(table);
+            AnsiConsole.Write(table);
             AnsiConsole.WriteLine();
         }
 
-        public void RenderException(Exception exception)
+        public void RenderException(Exception exception) => RenderException<Exception>(exception);
+
+        public void RenderException(ObsException exception)
+        {
+            RenderException(StorageException.InternalStorageFailure(exception));
+            AnsiConsole.WriteLine();
+        }
+
+        public static void RenderException<T>(T exception) where T : Exception
         {
             const ExceptionFormats formats = ExceptionFormats.ShortenTypes
                                              | ExceptionFormats.ShortenPaths
@@ -179,10 +188,15 @@ namespace Lib.Helpers
             AnsiConsole.WriteLine();
         }
 
-        public void RenderException(ObsException exception)
+        public static void WaitForExitOnDebugMode()
         {
-            RenderException(StorageException.InternalStorageFailure(exception));
+#if DEBUG
+            if (!Debugger.IsAttached) return;
+            AnsiConsole.Write(new Markup("[grey]Press any key to exit ..[/]"));
             AnsiConsole.WriteLine();
+            Console.ReadKey();
+            AnsiConsole.WriteLine();
+#endif
         }
     }
 }
